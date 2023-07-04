@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -12,9 +13,12 @@ public class Enemy : MonoBehaviour
     private CapsuleCollider capsulecollider;
     public bool isDead = false;
     public bool isSpawned = false;
-    public float health;
-    public int starScore=0;
-    public Guns gun;
+    public float enemyHealth;
+    public float healthBar = 1f;
+    public float currentHealth;
+    public Gun gun;
+    [SerializeField] private Slider healthSlider;
+
 
 
     private void Start()
@@ -24,19 +28,19 @@ public class Enemy : MonoBehaviour
 
         if (gameObject.CompareTag("EnemyA"))
         {
-            health = 50;
+            enemyHealth = 50;
         }
         else if (gameObject.CompareTag("EnemyB"))
         {
-            health = 100;
+            enemyHealth = 100;
         }
         else if (gameObject.CompareTag("EnemyC"))
         {
-            health = 150;
+            enemyHealth = 150;
         }
         else
         {
-            health = 200;
+            enemyHealth = 200;
         }
 
     }
@@ -50,6 +54,19 @@ public class Enemy : MonoBehaviour
         gameObject.transform.DOMove(roadPoint.position, 1f);
 
     }
+
+    private void Update()
+    {
+        healthSlider.value = currentHealth / healthBar;
+
+        if (BombManager.Instance.isbombActive == true)
+        {
+            currentHealth = 0;
+            BombManager.Instance.isbombActive = false;  
+        }
+    }
+
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -73,12 +90,12 @@ public class Enemy : MonoBehaviour
         }
         if (other.gameObject.CompareTag("Bullet"))
         {
-            starScore++;
-            health = health - gun.Damage;
+            StarScore.Instance.starScore++;
+            currentHealth = (enemyHealth - gun.Damage)/enemyHealth;
             Debug.Log("kursun carpti");
             BulletCount++;
             
-            if (health <= 0)
+            if (currentHealth <= 0)
             {
                 gameObject.transform.DOLookAt(playerTransform.position, 1f)
                     .OnComplete(() =>
