@@ -225,6 +225,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &23524240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23524238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ad88876de53c9a428e5d6fdf9c07a4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 10
 --- !u!1001 &27484622
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1426,6 +1439,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 495351703051825917, guid: 1e4785b78b1a09a4da0350cd3df429c2,
+        type: 3}
+      propertyPath: Damage
+      value: 12.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1321256331488891670, guid: 1e4785b78b1a09a4da0350cd3df429c2,
         type: 3}
       propertyPath: m_RootOrder
@@ -1504,7 +1522,7 @@ PrefabInstance:
     - target: {fileID: 1321256331488891671, guid: 1e4785b78b1a09a4da0350cd3df429c2,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1321256331488891671, guid: 1e4785b78b1a09a4da0350cd3df429c2,
         type: 3}
@@ -4518,6 +4536,19 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4189601948705793361}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &468857269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 468857268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ad88876de53c9a428e5d6fdf9c07a4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 25
 --- !u!1001 &477738322
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10342,7 +10373,7 @@ PrefabInstance:
     - target: {fileID: 664561451353216655, guid: 987aaf60825a03543832f3234b76fc52,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 664561451353216655, guid: 987aaf60825a03543832f3234b76fc52,
         type: 3}
@@ -12908,7 +12939,7 @@ PrefabInstance:
     - target: {fileID: 871439280158373904, guid: e5cb7605d43c8364d941d916249d1888,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 871439280158373904, guid: e5cb7605d43c8364d941d916249d1888,
         type: 3}
@@ -15412,6 +15443,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2044077551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2044077549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ad88876de53c9a428e5d6fdf9c07a4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 50
 --- !u!1001 &2047311899
 PrefabInstance:
   m_ObjectHideFlags: 0
