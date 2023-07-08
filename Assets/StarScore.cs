@@ -1,23 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-
 public class StarScore : MonoBehaviour
 {
-    public static StarScore Instance;
-    public int starScore = 0;
+    
+    public TextMeshProUGUI starScoreText;
 
-    private void Awake()
+
+
+    private void Update()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        UpdateScore();
     }
 
+    void UpdateScore()
+    {
+        starScoreText.text = "StarScore: " + EnemyManager.Instance.DeadCount.ToString();
+    }
 
 }

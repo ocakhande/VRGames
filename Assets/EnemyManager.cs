@@ -33,6 +33,7 @@ public class EnemyManager : MonoBehaviour
         if (spawnedEnemy.isDead == true)
         {
             DeadCount++;
+         
             enemyCount = 0;
         }
     }
