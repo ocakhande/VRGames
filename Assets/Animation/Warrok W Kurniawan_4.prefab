@@ -1339,9 +1339,10 @@ GameObject:
   - component: {fileID: 2019603217726224317}
   - component: {fileID: 5363159100335959011}
   - component: {fileID: 4521287317805618486}
+  - component: {fileID: 3508103218102546401}
   m_Layer: 0
   m_Name: Warrok W Kurniawan_4
-  m_TagString: EnemyD
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1354,7 +1355,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4591184607432799070}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -78.62001, y: 25.349865, z: -27.927227}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1430,14 +1431,18 @@ MonoBehaviour:
   manager: {fileID: 0}
   isDead: 0
   isSpawned: 0
-  enemyHealth: 0
   healthBar: 1
   currentHealth: 0
   explosionPrefab: {fileID: 1338941449926684, guid: 67bdebbb85b13b245b9a81082c88a910,
     type: 3}
   isbombActive: 0
-  gun: {fileID: 0}
   healthSlider: {fileID: 8498076309032602258}
+  enemyData: {fileID: 11400000, guid: d43217d72fc6d2649b32750af766195a, type: 2}
+  enemyHealth1: 0
+  enemySpeed1: 0
+  enemyDamage1: 0
+  enemyPower1: 0
+  gunManager: {fileID: 0}
 --- !u!82 &4521287317805618486
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1534,6 +1539,28 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!195 &3508103218102546401
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4591184607432799070}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0.1
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &4878970386196043461
 GameObject:
   m_ObjectHideFlags: 0

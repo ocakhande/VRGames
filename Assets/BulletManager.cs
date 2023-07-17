@@ -5,24 +5,30 @@ public class BulletManager : MonoBehaviour
 {
     public GameObject bullet;
     public Transform spawnPoint;
-    public float fireSpeed = 200;
+    public Gun gun;
 
 
     void Start()
     {
+        GunManager gunManager = FindObjectOfType<GunManager>();
+        gun = gunManager.gunList[gunManager.selectedGunID];
+
+
         XRGrabInteractable grabbable = GetComponent<XRGrabInteractable>();
         grabbable.activated.AddListener(FireBullet);
     }
 
     public void FireBullet(ActivateEventArgs arg)
     {
-        GameObject spawnedBullet = Instantiate(bullet, spawnPoint.position, spawnPoint.rotation);
-        spawnedBullet.transform.position = spawnPoint.position;
-        this.GetComponent<AudioSource>().Play();
-        spawnedBullet.GetComponent<Rigidbody>().velocity = spawnPoint.forward * fireSpeed;
-        Destroy(spawnedBullet, 1);
-
+        if (gun != null)
+        {
+            GameObject spawnedBullet = Instantiate(bullet, spawnPoint.position,spawnPoint.rotation);
+            //spawnedBullet.transform.position = spawnPoint.position;
+            this.GetComponent<AudioSource>().Play();
+            spawnedBullet.GetComponent<Rigidbody>().velocity = spawnPoint.forward * gun.fireSpeed;
+            Destroy(spawnedBullet, 1);
+        }
     }
-   
+
 
 }

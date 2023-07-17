@@ -17,6 +17,7 @@ TagManager:
   - Gun4
   - Ground
   - Bomb
+  - spwn
   layers:
   - Default
   - TransparentFX

@@ -1,124 +1,98 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
+using UnityEngine.AI;
+using System.Collections;
+using UnityEditor;
 //using System.Diagnostics;
 
 public class Enemy : MonoBehaviour
 {
     private Transform playerTransform;
     private Transform roadPoint;
-    private Transform bombSpawnPoint;
-    //private int BulletCount = 0;
     public EnemyManager manager;
     private CapsuleCollider capsulecollider;
     public bool isDead = false;
     public bool isSpawned = false;
-    public float enemyHealth;
     public float healthBar = 1f;
     public float currentHealth;
     public GameObject explosionPrefab;
     public bool isbombActive = false;
-    public Gun gun;
-    float moveSpeed = 5f;
     [SerializeField] private Slider healthSlider;
     private Rigidbody rb;
+    NavMeshAgent enemyNav;
 
+    public EnemyData enemyData;
+    public int enemyHealth1;
+    public int enemySpeed1;
+    public int enemyDamage1;
+    public int enemyPower1;
 
+    public GunManager gunManager;
 
     private void Start()
     {
+        GunManager gunManager = FindObjectOfType<GunManager>();
+
+        Debug.Log("enemyHealth" + enemyData.Health);
         rb = GetComponent<Rigidbody>();
 
         manager = FindObjectOfType<EnemyManager>();
-        gun = FindObjectOfType<Gun>();
 
         capsulecollider = gameObject.GetComponent<CapsuleCollider>();
 
-        if (gameObject.CompareTag("EnemyA"))
-        {
-            enemyHealth = 50;
-        }
-        else if (gameObject.CompareTag("EnemyB"))
-        {
-            enemyHealth = 100;
-        }
-        else if (gameObject.CompareTag("EnemyC"))
-        {
-            enemyHealth = 150;
-        }
-        else
-        {
-            enemyHealth = 200;
-        }
         currentHealth = healthBar;
-    }
 
+        enemyNav = GetComponent<NavMeshAgent>();
+        enemyNav.enabled = false;
+    }
 
     private void Awake()
     {
-        bombSpawnPoint = GameObject.Find("BombSpawnPoint").transform;
+
         playerTransform = GameObject.Find("Camera Offset").transform;
         roadPoint = GameObject.Find("Spawn").transform;
-        gameObject.transform.DOMove(roadPoint.position, 1f);
 
     }
 
     private void Update()
     {
-        //healthSlider.value = currentHealth / healthBar;
-        healthSlider.value = currentHealth;
 
-
-        if (isbombActive == true)
+        //healthSlider.value = currentHealth/enemyData.Health;
+        if (isSpawned && !isDead)
         {
-            currentHealth = 0;
-            isbombActive = false; 
-            EnemyManager.Instance.enemyCount = 0;
-            EnemyManager.Instance.DeadCount++;
-
-            
-        }
-    }
-
-
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Spawn"))
-        {
-            Debug.Log("carpti");
-            isSpawned = true;
-            gameObject.GetComponent<Animator>().SetBool("Falling", true);
-
-            StartCoroutine(FollowPlayer());
-        }
-
-        IEnumerator FollowPlayer()
-        {
-            while (true)
+            if (!enemyNav.enabled)
             {
-                Vector3 enemyTarget = playerTransform.position - Vector3.up * 1.25f;
-                float step = moveSpeed * Time.deltaTime;
-                transform.position = Vector3.MoveTowards(transform.position, enemyTarget, step);
-
-                Quaternion targetRotation = Quaternion.LookRotation(playerTransform.position - transform.position);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.2f);
-
-                yield return null;
+                enemyNav.enabled = true;
+                enemyNav.SetDestination(playerTransform.position);
+            }
+            else
+            {
+                enemyNav.SetDestination(playerTransform.position);
             }
         }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+
+        if (other.gameObject.CompareTag("spwn"))
+        {
+            gameObject.transform.DOMove(roadPoint.position, 1f)
+      .SetEase(Ease.Linear)
+      .OnComplete(() =>
+      {
+          isSpawned = true;
+          Debug.Log("düstü0");
+          gameObject.GetComponent<Animator>().SetBool("Falling", true);
+      });
+        }
+
 
         if (other.gameObject.CompareTag("Bullet"))
         {
-            //StarScore.Instance.starScore++;
-            currentHealth = currentHealth-(enemyHealth - gun.Damage)/enemyHealth;
-            healthSlider.value = currentHealth;
-
-            Debug.Log("kursun carpti");
-            //BulletCount++;
-            
+            Debug.Log("currentHealth" + currentHealth);
+            SetEnemyHealth();
             if (currentHealth <= 0)
             {
                 gameObject.transform.DOLookAt(playerTransform.position, 1f)
@@ -126,45 +100,76 @@ public class Enemy : MonoBehaviour
                     {
                         rb.isKinematic = false;
                         gameObject.GetComponent<Animator>().SetBool("Dead", true);
-                        isDead = true;
-                        StartCoroutine(DestroyEnemyAfterAnimation());
+                        enemyNav.isStopped = true;
+                        StartCoroutine(DeactivateEnemyAfterAnimation());
 
                     });
-                isDead = false;
             }
         }
 
+
+
         if (other.gameObject.CompareTag("Bomb"))
         {
-            Debug.Log("bomba carpti");
             var explosion = Instantiate(explosionPrefab, other.gameObject.transform.position, other.gameObject.transform.rotation);
             ParticleSystem ps = explosion.GetComponent<ParticleSystem>();
             var main = ps.main;
-            Debug.Log("patladi");
 
             this.GetComponent<AudioSource>().Play();
-            isbombActive = true;
-            Debug.Log("patladi2");
-
-
-            other.gameObject.SetActive(false);
-            other.transform.position = bombSpawnPoint.position;
 
             currentHealth = 0;
             rb.isKinematic = false;
-            isDead = true;
-            Debug.Log("Bomba pasif edildi.");
             gameObject.GetComponent<Animator>().SetBool("Dead", true);
-            StartCoroutine(DestroyEnemyAfterAnimation());
+            enemyNav.isStopped = true;
+
+           StartCoroutine(DeactivateEnemyAfterAnimation());
+            other.gameObject.SetActive(false);
+            
 
         }
-        isDead = false;
 
     }
-    private IEnumerator DestroyEnemyAfterAnimation()
+
+    public void SetEnemyHealth()
     {
-        yield return new WaitForSeconds(1f);
-        Destroy(gameObject);
+        currentHealth = currentHealth - ((enemyData.Health - GunManager.Instance.gunDamage) / enemyData.Health);
+        healthSlider.value = currentHealth;
+    }
+
+    public void SetEnemyData()
+    {
+
+        gameObject.GetComponent<Animator>().SetBool("Dead", false);
+        currentHealth = healthBar;
+        isSpawned = false;
+        enemyDamage1 = enemyData.enemyDamage;
+        enemyHealth1 = enemyData.Health;
+        enemyPower1 = enemyData.enemyPower;
+        enemySpeed1 = enemyData.enemySpeed;
+        enemyNav.enabled = false;
+    }
+
+
+    private IEnumerator DeactivateEnemyAfterAnimation()
+    {
+        yield return new WaitForSeconds(2f);
+
+        if (gameObject.activeSelf)
+        {
+            isDead = true;
+            Animator animator = gameObject.GetComponent<Animator>();
+            animator.enabled = false;
+            EnemyManager.Instance.enemyCount = 0;
+            EnemyManager.Instance.deadCount++;
+        }
+        else
+        {
+            yield return null;
+            StartCoroutine(DeactivateEnemyAfterAnimation());
+        }
+
+
     }
 }
+
 

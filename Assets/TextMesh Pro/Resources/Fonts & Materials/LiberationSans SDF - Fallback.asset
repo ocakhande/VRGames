@@ -345,6 +345,21 @@ MonoBehaviour:
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
+  - m_Index: 242
+    m_Metrics:
+      m_Width: 10
+      m_Height: 75
+      m_HorizontalBearingX: 7
+      m_HorizontalBearingY: 75
+      m_HorizontalAdvance: 24
+    m_GlyphRect:
+      m_X: 480
+      m_Y: 10
+      m_Width: 10
+      m_Height: 75
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
   m_CharacterTable:
   - m_ElementType: 1
     m_Unicode: 32
@@ -385,6 +400,10 @@ MonoBehaviour:
   - m_ElementType: 1
     m_Unicode: 8230
     m_GlyphIndex: 2030
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 304
+    m_GlyphIndex: 242
     m_Scale: 1
   m_AtlasTextures:
   - {fileID: 28268798066460806}
@@ -428,6 +447,10 @@ MonoBehaviour:
     m_Y: 78
     m_Width: 70
     m_Height: 80
+  - m_X: 470
+    m_Y: 0
+    m_Width: 29
+    m_Height: 94
   m_FreeGlyphRects:
   - m_X: 149
     m_Y: 25
@@ -459,11 +482,15 @@ MonoBehaviour:
     m_Height: 431
   - m_X: 467
     m_Y: 0
-    m_Width: 44
+    m_Width: 3
     m_Height: 78
   - m_X: 470
-    m_Y: 0
+    m_Y: 94
     m_Width: 41
+    m_Height: 417
+  - m_X: 499
+    m_Y: 0
+    m_Width: 12
     m_Height: 511
   m_fontInfo:
     Name: Liberation Sans

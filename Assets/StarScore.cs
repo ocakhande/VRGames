@@ -1,20 +1,25 @@
 using TMPro;
 using UnityEngine;
+
 public class StarScore : MonoBehaviour
 {
-    
+    public int cash = 0;
     public TextMeshProUGUI starScoreText;
+    public static StarScore instance;
 
-
-
-    private void Update()
+    private void Awake()
     {
-        UpdateScore();
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
-
-    void UpdateScore()
+    public void UpdateScore() 
     {
-        starScoreText.text = "StarScore: " + EnemyManager.Instance.DeadCount.ToString();
+        starScoreText.text = "$ Cash: " + cash.ToString();
     }
-
 }
