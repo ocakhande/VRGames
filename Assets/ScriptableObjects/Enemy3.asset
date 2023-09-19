@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Enemy3
   m_EditorClassIdentifier: 
   Health: 150
+  enemySpeed: 3
   enemyDamage: 15
+  enemyPower: 7

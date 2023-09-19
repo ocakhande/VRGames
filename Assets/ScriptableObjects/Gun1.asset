@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ad88876de53c9a428e5d6fdf9c07a4d, type: 3}
   m_Name: Gun1
   m_EditorClassIdentifier: 
-  Damage: 5
+  Damage: 2
   fireSpeed: 10
   Cost: 0
   gun: {fileID: 848547204322024643, guid: 0a0da62131247284ba15b66396049352, type: 3}
